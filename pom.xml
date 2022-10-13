@@ -74,39 +74,24 @@
   </licenses>
 
   <scm>
-    <url>http://github.com/openpnp/opencv</url>
-    <connection>scm:git:http://github.com/openpnp/opencv.git</connection>
-    <developerConnection>scm:git:http://github.com/openpnp/opencv.git</developerConnection>
+    <url>http://github.com/jasonswat/opencv</url>
+    <connection>scm:git:http://github.com/jasonswat/opencv.git</connection>
+    <developerConnection>scm:git:http://github.com/jasonswat/opencv.git</developerConnection>
   </scm>
 
   <issueManagement>
     <system>GitHub</system>
-    <url>http://github.com/openpnp/opencv/issues</url>
+    <url>http://github.com/jasonswat/opencv/issues</url>
   </issueManagement>
 
   <developers>
     <developer>
-      <id>vonnieda</id>
-      <name>Jason von Nieda</name>
-      <email>jason@vonnieda.org</email>
-      <organization>OpenPnP</organization>
-      <organizationUrl>http://openpnp.org</organizationUrl>
+      <id>jasonswat</id>
+      <name>Jason</name>
+      <email>jason.swat@gmail.com</email>
       <roles>
         <role>maintainer</role>
       </roles>
-    </developer>
-    <developer>
-      <id>michaelahlers</id>
-      <name>Michael Ahlers</name>
-      <email>michael.ahlers@pattern.nu</email>
-      <organization>Pattern</organization>
-      <organizationUrl>http://pattern.nu</organizationUrl>
-      <roles>
-        <role>maintainer</role>
-      </roles>
-      <!--<properties>
-        <picUrl>http://pattern.nu/images/team/michael.ahlers.png</picUrl>
-      </properties>-->
     </developer>
   </developers>
 
@@ -131,7 +116,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>    
+      </plugin>
 
 	    <plugin>
 	      <groupId>org.sonatype.plugins</groupId>
