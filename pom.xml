@@ -5,12 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <packaging>bundle</packaging>
-  <groupId>org.openpnp</groupId>
+  <groupId>io.github.jasonswat</groupId>
   <artifactId>opencv</artifactId>
   <version>4.5.5-1</version>
-  <name>OpenPnP OpenCV</name>
+  <name>Jason Swat OpenCV</name>
   <description>OpenCV packaged with native libraries and loader for multiple platforms.</description>
-  <url>http://github.com/openpnp/opencv</url>
+  <url>https://github.com/jasonswat/opencv</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
