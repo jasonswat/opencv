@@ -23,7 +23,7 @@ jobs:
   build_mac_linux_x64:
     strategy:
       matrix:
-        os: [ubuntu-18.04, macos-11.7]
+        os: [ubuntu-18.04, macos-11]
         java: [8]
 
     runs-on: ${{ matrix.os }}
@@ -55,7 +55,7 @@ jobs:
 
       - name: Build OpenCV
         run: |
-          wget https://github.com/opencv/opencv/archive/${{ env.OPENCV_VERSION }}.zip > /dev/null
+          wget -q https://github.com/opencv/opencv/archive/${{ env.OPENCV_VERSION }}.zip > /dev/null
           unzip ${{ env.OPENCV_VERSION }} > /dev/null
           cd opencv-${{ env.OPENCV_VERSION }}
           mkdir build
