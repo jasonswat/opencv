@@ -86,7 +86,7 @@ jobs:
           cp opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64 || :
 
       - name: Build with Maven
-        run: mvn -B test
+        run: mvn -B build-helper:parse-version test
 
       - name: Upload Libraries
         uses: actions/upload-artifact@v2
