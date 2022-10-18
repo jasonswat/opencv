@@ -130,8 +130,8 @@ jobs:
 
       - name: Copy Binaries
         run: |
-          cp macos-10.15/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream
-          cp macos-10.15/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64
+          cp macos-11/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream
+          cp macos-11/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64
           cp ubuntu-18.04/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64
 
       - name: Build with Maven
@@ -145,7 +145,6 @@ jobs:
 
 
 
-
   # Downloads the distribution jar that was built above and runs
   # a short smoke test on it on many platforms and versions of
   # Java. This is intended to ensure that the built jar
@@ -154,7 +153,7 @@ jobs:
     needs: build_dist
     strategy:
       matrix:
-        os: [macos-10.15, ubuntu-20.04, ubuntu-18.04]
+        os: [macos-11, ubuntu-20.04, ubuntu-18.04]
         java: [8, 9, 10, 11, 12, 13, 14, 15]
 
     runs-on: ${{ matrix.os }}
@@ -223,8 +222,8 @@ jobs:
 
       - name: Copy Binaries
         run: |
-          cp macos-10.15/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream
-          cp macos-10.15/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64
+          cp macos-11/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream
+          cp macos-11/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64
           cp ubuntu-18.04/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64
 
       - name: Publish to Apache Maven Central
