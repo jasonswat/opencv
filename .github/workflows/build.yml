@@ -137,9 +137,6 @@ jobs:
 
       - name: Build with Maven
         run: |
-          ls -la /usr/lib/x86_64-linux-gnu/libgstbase-1.0.so.0
-          ls -la /usr/lib/x86_64-linux-gnu/libgstbase-1.0.so.0.1603.0
-          ldconfig -p | grep libgstbase
           export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
           mvn -B build-helper:parse-version install
 
