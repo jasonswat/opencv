@@ -62,6 +62,7 @@ jobs:
           cd build
           cmake \
             -D OPENCV_FORCE_3RDPARTY_BUILD=ON \
+            -D WITH_1394=OFF \
             -D BUILD_JAVA=ON \
             -D BUILD_FAT_JAVA_LIB=ON \
             -D OPENCV_ENABLE_NONFREE=ON \
