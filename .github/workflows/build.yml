@@ -136,7 +136,9 @@ jobs:
           cp ubuntu-18.04/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64
 
       - name: Build with Maven
-        run: mvn -B build-helper:parse-version install
+        run: |
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu
+          mvn -B build-helper:parse-version install
 
       - name: Upload Distribution
         uses: actions/upload-artifact@v2
