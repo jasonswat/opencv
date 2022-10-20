@@ -99,33 +99,8 @@ jobs:
             opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so
             opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib
 
-
   # Download and combine the artifacts from the above jobs and build the
   # distribution jar. Uploads it as an artifact for subsequent steps.
-  build_dist:
-    needs: [build_mac_linux_x64]
-
-    strategy:
-      matrix:
-        os: [ubuntu-20.04]
-        java: [8]
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-
-      - name: Setup JDK ${{ matrix.java }}
-        uses: actions/setup-java@v1
-        with:
-          java-version: ${{ matrix.java }}
-
-      - name: Get Version Info
-        run: |
-          echo "POM_VERSION=$(mvn build-helper:parse-version org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-          echo "OPENCV_VERSION=$(mvn build-helper:parse-version org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=opencv.version.long -q -DforceStdout)" >> $GITHUB_ENV
-          echo "OPENCV_VERSION_SHORT=$(mvn build-helper:parse-version org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=opencv.version.short -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: Download Libraries
         uses: actions/download-artifact@v2
@@ -138,9 +113,6 @@ jobs:
 
       - name: Build with Maven
         run: |
-          ls -la /usr/lib/x86_64-linux-gnu/libgstbase-1.0.so.0
-          ls -la /usr/lib/x86_64-linux-gnu/libgstbase-1.0.so.0.1603.0
-          ldconfig -p | egrep 'libgstbase|libgstapp'
           export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
           mvn -B build-helper:parse-version install
 
@@ -149,8 +121,6 @@ jobs:
         with:
           name: dist
           path: target/opencv*
-
-
 
   # Downloads the distribution jar that was built above and runs
   # a short smoke test on it on many platforms and versions of
