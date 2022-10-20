@@ -127,7 +127,7 @@ jobs:
   # Java. This is intended to ensure that the built jar
   # runs on all of the supported targets.
   test:
-    needs: build_dist
+    needs: build_mac_linux_x64
     strategy:
       matrix:
         os: [macos-11, ubuntu-20.04, ubuntu-22.04]
