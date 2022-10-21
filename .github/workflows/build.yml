@@ -83,7 +83,7 @@ jobs:
           make -j8
 
       - name: Copy Libraries
-        if: steps.build_opencv.outcome == 'success'
+        if: steps.build_opencv(macos-11, 8).outcome == 'success'
         run: |
           cp opencv-${{ env.OPENCV_VERSION }}/build/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream || :
           cp opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64 || :
