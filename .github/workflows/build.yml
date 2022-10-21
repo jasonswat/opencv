@@ -115,11 +115,16 @@ jobs:
       - name: Download Libraries
         uses: actions/download-artifact@v2
 
-      - name: Copy Binaries
-        if: steps.build_with_maven_test.outcome == 'success'
+      - name: Copy Mac Binaries
+        if: (steps.build_with_maven_test.outcome == 'success' && runner.os == 'macOS')
         run: |
           cp macos-11/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream
           cp macos-11/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64
+
+      - name: Copy Linux Binaries
+        if: (steps.build_with_maven_test.outcome == 'success' && runner.os == 'Linux')
+        run: |
+          cp ubuntu-20.04/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream
           cp ubuntu-20.04/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64
 
       - name: Build with Maven
