@@ -97,6 +97,7 @@ jobs:
           cp opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64 || :
 
       - name: Build with Maven
+        id: build_with_maven_test
         if: (steps.copy_mac_libs.outcome == 'success' && steps.copy_linux_libs.outcome == 'success')
         run: mvn -B build-helper:parse-version test
 
@@ -116,17 +117,21 @@ jobs:
         uses: actions/download-artifact@v2
 
       - name: Copy Binaries
+        if: steps.build_with_maven_test.outcome == 'success'
         run: |
           cp macos-11/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream
           cp macos-11/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64
           cp ubuntu-20.04/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64
 
       - name: Build with Maven
+        id: build_with_maven
+        if: steps.build_with_maven_test.outcome == 'success'
         run: |
           export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
           mvn -B build-helper:parse-version install
 
       - name: Upload Distribution
+        if: steps.build_with_maven.outcome == 'success'
         uses: actions/upload-artifact@v2
         with:
           name: dist
