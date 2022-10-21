@@ -96,9 +96,8 @@ jobs:
           cp opencv-${{ env.OPENCV_VERSION }}/build/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream || :
           cp opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64 || :
 
-      - name: Build with Maven
+      - name: Build with Maven Test
         id: build_with_maven_test
-        if: (steps.copy_mac_libs.outcome == 'success' && steps.copy_linux_libs.outcome == 'success')
         run: mvn -B build-helper:parse-version test
 
       - name: Upload Libraries
