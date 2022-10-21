@@ -82,14 +82,22 @@ jobs:
             ..
           make -j8
 
-      - name: Copy Libraries
+      - name: Copy Mac Libraries
+        id: copy_mac_libs
         if: (steps.build_opencv.outcome == 'success' && runner.os == 'macOS')
+        run: |
+          cp opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64 || :
+          cp opencv-${{ env.OPENCV_VERSION }}/build/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream || :
+
+      - name: Copy Linux Libraries
+        id: copy_linux_libs
+        if: (steps.build_opencv.outcome == 'success' && runner.os == 'Linux')
         run: |
           cp opencv-${{ env.OPENCV_VERSION }}/build/bin/opencv-${{ env.OPENCV_VERSION_SHORT }}.jar upstream || :
           cp opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.so src/main/resources/nu/pattern/opencv/linux/x86_64 || :
-          cp opencv-${{ env.OPENCV_VERSION }}/build/lib/libopencv_java${{ env.OPENCV_VERSION_SHORT }}.dylib src/main/resources/nu/pattern/opencv/osx/x86_64 || :
 
       - name: Build with Maven
+        if: (steps.copy_mac_libs.outcome == 'success' && steps.copy_linux_libs.outcome == 'success')
         run: mvn -B build-helper:parse-version test
 
       - name: Upload Libraries
